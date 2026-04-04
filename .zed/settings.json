@@ -1,0 +1,7 @@
+{
+  "colorize_brackets": true,
+  "inlay_hints": {
+    "enabled": true
+  },
+  "project_name": "nudge"
+}
