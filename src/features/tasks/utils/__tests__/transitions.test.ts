@@ -35,7 +35,14 @@ describe("transitionTask — valid transitions", () => {
   });
 
   it("transitions a task from Defined to Active", () => {
-    const task = makeTask({ state: TASK_STATE.Defined });
+    const validSmart = {
+      specific: { response: "x", met: true },
+      measurable: { response: "x", met: true },
+      achievable: { response: "x", met: true },
+      relevant: { response: "x", met: true },
+      timeBound: { response: "x", met: true, deadline: new Date() },
+    };
+    const task = makeTask({ state: TASK_STATE.Defined, smart: validSmart });
     const result = transitionTask(task, TASK_STATE.Active);
 
     expect(result.success).toBe(true);
@@ -85,7 +92,14 @@ describe("transitionTask — valid transitions", () => {
   });
 
   it("transitions a task from Paused back to Active", () => {
-    const task = makeTask({ state: TASK_STATE.Paused });
+    const validSmart = {
+      specific: { response: "x", met: true },
+      measurable: { response: "x", met: true },
+      achievable: { response: "x", met: true },
+      relevant: { response: "x", met: true },
+      timeBound: { response: "x", met: true, deadline: new Date() },
+    };
+    const task = makeTask({ state: TASK_STATE.Paused, smart: validSmart });
     const result = transitionTask(task, TASK_STATE.Active);
 
     expect(result.success).toBe(true);
@@ -163,6 +177,16 @@ describe("transitionTask — invalid transitions", () => {
     expect(result.success).toBe(false);
     if (!result.success) {
       expect(result.reason).toBeTruthy();
+    }
+  });
+
+  it("returns success false when transitioning to Active with incomplete SMART criteria", () => {
+    const task = makeTask({ state: TASK_STATE.Defined }); // smart is empty by default
+    const result = transitionTask(task, TASK_STATE.Active);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.reason).toContain("SMART");
     }
   });
 

@@ -2,7 +2,13 @@
 // Other features and routes should only ever import from here,
 // never directly from inside this folder.
 
-// Components, hooks, and utils will be exported here as they are built.
-// This file intentionally starts empty — add exports as the feature grows.
-
-export {};
+export {
+  isAchievableMet,
+  isMeasurableMet,
+  isRelevantMet,
+  isSmartComplete,
+  isSpecificMet,
+  isTimeBoundMet,
+} from "./utils/smartCriteria";
+export type { TransitionResult } from "./utils/transitions";
+export { transitionTask } from "./utils/transitions";
