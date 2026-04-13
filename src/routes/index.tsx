@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({ component: HomePage });
 
@@ -15,6 +16,11 @@ function HomePage() {
 					define goals, and let Nudge help you figure out what to do next —
 					without the overwhelm.
 				</p>
+				<div className="mt-8">
+					<Button asChild size="lg" className="rounded-full px-8">
+						<Link to="/dashboard">Open Dashboard</Link>
+					</Button>
+				</div>
 			</section>
 		</main>
 	);
