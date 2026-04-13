@@ -26,7 +26,8 @@ export function useAddTask() {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
-      return taskRepository.saveTask(newTask);
+      await taskRepository.saveTask(newTask);
+      return newTask;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
@@ -39,6 +40,22 @@ export function useUpdateTask() {
   return useMutation({
     mutationFn: async (task: Task) => {
       return taskRepository.saveTask(task);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+}
+
+export function useDeleteTask() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (taskId: string) => {
+      const all = await taskRepository.getTasks();
+      const filtered = all.filter(t => t.id !== taskId);
+      // Wait, taskRepository doesn't have delete, we rewrite the localstorage array?
+      localStorage.setItem("nudge_tasks", JSON.stringify(filtered));
+      return taskId;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

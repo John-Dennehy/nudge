@@ -28,11 +28,12 @@ export const ALLOWED_TRANSITIONS: Record<TaskState, TaskState[]> = {
     TASK_STATE.Succeeded,
     TASK_STATE.Failed,
     TASK_STATE.Paused,
+    TASK_STATE.Defined,
   ],
   [TASK_STATE.Paused]: [TASK_STATE.Active, TASK_STATE.Failed],
-  [TASK_STATE.Succeeded]: [TASK_STATE.Reviewed],
-  [TASK_STATE.Failed]: [TASK_STATE.Reviewed],
-  [TASK_STATE.Reviewed]: [],
+  [TASK_STATE.Succeeded]: [TASK_STATE.Reviewed, TASK_STATE.Defined],
+  [TASK_STATE.Failed]: [TASK_STATE.Reviewed, TASK_STATE.Defined],
+  [TASK_STATE.Reviewed]: [TASK_STATE.Defined],
 };
 
 // ─── SMART Criteria ───────────────────────────────────────────────────────────

@@ -30,6 +30,11 @@ export interface SmartAssessment {
   relevant: EvaluatedCriterion;
   timeBound: TimeBoundCriterion;
   isComplete: boolean;
+  demultiplexer?: {
+    requiresSplitting: boolean;
+    suggestedSplits: string[];
+    suggestedPrerequisites: string[];
+  };
 }
 
 export const generateSmartCriteria = createServerFn({ method: "POST" })
@@ -70,13 +75,18 @@ Evaluate each of the 5 traits. For each trait:
 - 'question': If met=false, ask a single, natural, highly-focused question to prompt the user to provide that context. If met=true, return null.
 - For TimeBound ONLY, if met=false, add 'requiresDate': true if the question explicitly asks for a deadline.
 
+PROJECT DEMULTIPLEXING:
+Additionally, evaluate if the overarching goal is actually a massive "Project" masquerading as a task (e.g., "Build an entire web app"). If it is too large for a single sitting or requires distinct multi-step phases, set 'requiresSplitting' to true and return 2-4 bite-sized sub-tasks in 'suggestedSplits'.
+If the task has clear blocking prerequisites that must be accomplished *before* this task can even be attempted, return them as string titles in 'suggestedPrerequisites'.
+
 Return ONLY a JSON object exactly matching this structure, with no markdown wrappers:
 {
   "specific": { "met": boolean, "statement": string|null, "question": string|null },
   "measurable": { "met": boolean, "statement": string|null, "question": string|null },
   "achievable": { "met": boolean, "statement": string|null, "question": string|null },
   "relevant": { "met": boolean, "statement": string|null, "question": string|null },
-  "timeBound": { "met": boolean, "statement": string|null, "question": string|null, "requiresDate": boolean }
+  "timeBound": { "met": boolean, "statement": string|null, "question": string|null, "requiresDate": boolean },
+  "demultiplexer": { "requiresSplitting": boolean, "suggestedSplits": [], "suggestedPrerequisites": [] }
 }`
             }]
           },
