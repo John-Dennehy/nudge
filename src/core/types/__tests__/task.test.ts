@@ -36,11 +36,12 @@ describe("ALLOWED_TRANSITIONS", () => {
 		]);
 	});
 
-	it("allows Active to transition to Succeeded, Failed, or Paused", () => {
+	it("allows Active to transition to Succeeded, Failed, Paused, or Defined", () => {
 		expect(ALLOWED_TRANSITIONS[TASK_STATE.Active]).toEqual([
 			TASK_STATE.Succeeded,
 			TASK_STATE.Failed,
 			TASK_STATE.Paused,
+			TASK_STATE.Defined,
 		]);
 	});
 
@@ -51,20 +52,24 @@ describe("ALLOWED_TRANSITIONS", () => {
 		]);
 	});
 
-	it("allows Succeeded to transition only to Reviewed", () => {
+	it("allows Succeeded to transition to Reviewed or Defined", () => {
 		expect(ALLOWED_TRANSITIONS[TASK_STATE.Succeeded]).toEqual([
 			TASK_STATE.Reviewed,
+			TASK_STATE.Defined,
 		]);
 	});
 
-	it("allows Failed to transition only to Reviewed", () => {
+	it("allows Failed to transition to Reviewed or Defined", () => {
 		expect(ALLOWED_TRANSITIONS[TASK_STATE.Failed]).toEqual([
 			TASK_STATE.Reviewed,
+			TASK_STATE.Defined,
 		]);
 	});
 
-	it("allows no transitions out of Reviewed — it is a terminal state", () => {
-		expect(ALLOWED_TRANSITIONS[TASK_STATE.Reviewed]).toEqual([]);
+	it("allows Reviewed to transition back to Defined", () => {
+		expect(ALLOWED_TRANSITIONS[TASK_STATE.Reviewed]).toEqual([
+			TASK_STATE.Defined,
+		]);
 	});
 
 	it("does not allow Active to transition directly to Reviewed", () => {
@@ -77,10 +82,6 @@ describe("ALLOWED_TRANSITIONS", () => {
 		expect(ALLOWED_TRANSITIONS[TASK_STATE.Ideas]).not.toContain(
 			TASK_STATE.Active,
 		);
-	});
-
-	it("does not allow Reviewed to transition to anything", () => {
-		expect(ALLOWED_TRANSITIONS[TASK_STATE.Reviewed]).toHaveLength(0);
 	});
 });
 
