@@ -1,0 +1,3 @@
+# Reclaiming 'Failed' as a Necessary State for Learning
+
+In productivity tools designed for neurodivergent individuals, failure is commonly euphemized (e.g. "shelved", "dropped", "archived") to avoid triggering rejection sensitivity. In Nudge, we deliberately retain and elevate `Failed` as an explicit, first-class state in the task lifecycle. Mastery and skill acquisition—like learning a musical instrument—are fundamentally series of iterative failures. The `Failed` state exists not as a punitive terminal dead-end, but as a deliberate trigger for the `Reviewed` loop where lessons and reflections are extracted to adapt future strategy.
