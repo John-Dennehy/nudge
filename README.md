@@ -1,213 +1,140 @@
-Welcome to your new TanStack Start app! 
+# Nudge 🧠
 
-# Getting Started
+> **An executive function and decision-support second brain designed for people with AuDHD to overcome task paralysis, transform raw brain dumps into actionable atomic goals, and surface curated next steps based on current energy and emotional state.**
 
-To run this application:
+---
 
+## The Problem
+
+Traditional task managers and productivity frameworks (Jira, Linear, Todoist, GTD) fail people with ADHD, autism, and executive dysfunction because they impose high upfront administrative overhead:
+1. **The Blank Form Trap**: Forcing users to specify categories, deadlines, priority dropdowns, and sub-tasks before an idea can even be captured triggers immediate executive shutdown.
+2. **Cognitive Overload & Paralysis**: Staring at a list of 40 tasks induces overwhelm and shame spirals.
+3. **Rigid Dogma ("Eat the Frog")**: Insisting users tackle their hardest, most dreaded task first thing causes chronic avoidance when executive dopamine is depleted.
+4. **Time Blindness & Rejection Sensitivity**: Missing a deadline feels like moral failure, and struggling individuals frequently feel they have "done nothing today," blinded to their quiet, incremental progress.
+
+---
+
+## Core Principles & Design Philosophy
+
+Nudge fundamentally inverts the relationship between the user and the tool:
+
+### 1. You Dump, Nudge Deconstructs
+The user's sole responsibility during capture is an unstructured **Brain Dump** (via text or voice). Nudge bears the cognitive burden of parsing, evaluating, and structuring thoughts into manageable pieces.
+
+### 2. Atomic SMART Goals
+A goal is **not considered ready if it can be reasonably split further** (down to atomic ~2–15 minute steps). If a task is too big (e.g. *"Do my taxes"*), Nudge automatically slices it into physical starter steps. Parent-to-child relationships are tracked behind the scenes, shielding the user from tree overwhelm.
+
+### 3. Balatro-Style Clarification Deck
+When an idea is ambiguous or too large, Nudge asks strictly **one question at a time**. Options are presented as a tactile "hand" of cards (inspired by the game *Balatro*) that can be cycled and selected across any modality:
+* **Keyboard**: Arrow keys (`←` / `→` or `h` / `l`), numbers (`1`, `2`, `3`), and `Enter` / `Space` to select.
+* **Mouse**: Hover elevation and click.
+* **Touch**: Tap and swipe on mobile/tablet.
+* **Write-In**: Clean fallback input immediately beneath the cards.
+
+### 4. Adaptive Curated Nudges (Not Rigid Limits)
+Rather than an overwhelming backlog or an arbitrary 3-task limit, Nudge surfaces a small, intelligent selection of context-aware options:
+* ☕ **Quick Win (Momentum)**: A sub-atomic physical action with near-zero activation barrier to break inertia.
+* 🛡️ **Clear the Dread ("Eat the Frog")**: Tackles lingering anxiety when emotional bandwidth permits.
+* ⚡ **Best Return (Leverage)**: Highest ratio of impact to required effort.
+* ⏰ **Needs Attention Soon (Urgent Slice)**: Deconstructs urgent deadlines into an immediate 5-minute starter step so the user is never frozen by magnitude.
+
+### 5. Continuous Two-Way Reflection (Timerless & Shame-Free)
+Execution is **completely free of countdown timers, alarms, or judgment**. When a task concludes, Nudge prompts constructive reflection:
+* **On Success**: Checks whether you pushed outside your comfort zone or stayed comfortably safe, guarding against stagnation.
+* **On Failure**: Normalizes failure as iterative data. Asks *"Was this a reasonable goal?"* and *"Did you feel overwhelmed?"*, then creates a calibrated replacement goal with a fresh target.
+
+### 6. Quiet Progress
+Gentle, visible counters highlight non-obvious wins (*thoughts untangled*, *atomic steps finished*, *lessons recorded*, *comfort zones stretched*) to combat ADHD time-blindness and the demoralizing feeling of having achieved nothing.
+
+### 7. Strict Plain English Policy (Zero Jargon)
+Under the hood, Nudge utilizes formal state machines, SMART criteria evaluation, DAG dependency trees, and LLM scoring. **However, zero engineering or productivity jargon is ever presented to the user.** Copy is always warm, human, conversational, and direct.
+
+---
+
+## Domain Model & Architecture
+
+For full architectural records and domain glossaries:
+* **Domain Vocabulary**: [`CONTEXT.md`](./CONTEXT.md)
+* **ADR 0001**: [`Continuous Reflection Across Both Failure and Success`](./docs/adr/0001-reclaiming-failure-as-learning.md)
+* **ADR 0002**: [`Adaptive Curated Nudges (Beyond Rigid Limits)`](./docs/adr/0002-adaptive-curated-nudges.md)
+* **ADR 0003**: [`Automated SMART Formulation and Progressive Clarification Cards`](./docs/adr/0003-automated-smart-formulation.md)
+* **ADR 0004**: [`Balatro-Style Multi-Modal Clarification Deck`](./docs/adr/0004-balatro-style-clarification-deck.md)
+
+---
+
+## Technical Stack
+
+* **Framework**: [TanStack Start](https://tanstack.com/start) (Full-stack React 19 + SSR + Nitro Server Functions)
+* **Routing**: [TanStack Router](https://tanstack.com/router) (Type-safe file-based routing)
+* **Server State**: [TanStack Query v5](https://tanstack.com/query)
+* **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) + Shadcn/Radix primitives
+* **Code Quality & Linting**: [Biome](https://biomejs.dev/)
+* **Test Suite**: [Vitest](https://vitest.dev/)
+* **AI Engine**: Gemini Flash-Lite / Google Generative AI over HTTPS server functions with deterministic heuristics fallback.
+
+---
+
+## Development Setup
+
+### Prerequisites
+* [Node.js](https://nodejs.org/) v20+
+* [pnpm](https://pnpm.io/) v9+
+
+### Install Dependencies
 ```bash
 pnpm install
-pnpm dev
 ```
 
-# Building For Production
+### Environment Configuration
+Create a `.env` file in the project root:
+```env
+GEMINI_API_KEY="your-gemini-api-key"
+```
+*(Note: Nudge includes a heuristic offline engine, so core features function even without an API key).*
 
-To build this application for production:
-
+### Running Locally
 ```bash
+pnpm dev
+```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+### Quality Checks & Testing
+```bash
+# Run unit and integration tests
+pnpm test
+
+# Format and lint code with Biome
+pnpm check
+
+# Build production client and server bundles
 pnpm build
 ```
 
-## Testing
+---
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+## Project Structure
 
-```bash
-pnpm test
+```
+nudge/
+├── docs/
+│   └── adr/                  # Architectural Decision Records
+├── src/
+│   ├── components/           # Shared UI primitives (Buttons, Cards, Dialogs)
+│   ├── core/
+│   │   └── types/            # Canonical domain types & state machines
+│   ├── features/
+│   │   └── tasks/
+│   │       ├── api/          # Server functions (AI deconstructor, repositories)
+│   │       ├── components/   # Feature UI (ClarificationDeck, AgreedTaskHero, etc.)
+│   │       ├── hooks/        # React Query hooks (useTasks, useQuietProgress)
+│   │       └── utils/        # Pure domain logic (nudges curation, transitions)
+│   └── routes/               # TanStack Router routes (__root, index, dashboard)
+├── CONTEXT.md                # Ubiquitous domain language & anti-jargon guidelines
+└── README.md
 ```
 
-## Styling
+---
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+## Contributing & Multi-Agent Development
 
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
-
-```bash
-pnpm lint
-pnpm format
-pnpm check
-```
-
-
-## Shadcn
-
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
-
-```bash
-pnpm dlx shadcn@latest add button
-```
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+Nudge is designed to be developed modularly using **tracer-bullet vertical slices**. All feature work is tracked via GitHub Issues declaring explicit blocking dependencies. Check the issue tracker for tickets tagged `ready-for-agent` or `help-wanted`.
