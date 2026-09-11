@@ -137,4 +137,5 @@ nudge/
 
 ## Contributing & Multi-Agent Development
 
-Nudge is designed to be developed modularly using **tracer-bullet vertical slices**. All feature work is tracked via GitHub Issues declaring explicit blocking dependencies. Check the issue tracker for tickets tagged `ready-for-agent` or `help-wanted`.
+Nudge is designed to be developed modularly using **tracer-bullet vertical slices**. All feature work is tracked via GitHub Issues declaring explicit blocking dependencies. Check the [Engineering Roadmap](./docs/ROADMAP.md) or the issue tracker for tickets tagged [`ready-for-agent`](https://github.com/John-Dennehy/nudge/labels/ready-for-agent).
+
