@@ -1,3 +1,0 @@
-# Adopting the 'One Fork' Strategy for Executive Paralysis
-
-Traditional productivity advice often promotes "eating the frog"—demanding that users tackle their most difficult, high-friction task first thing. For individuals with ADHD and executive dysfunction, high initial friction triggers chronic paralysis, pathological avoidance, and shame spirals. In Nudge, Unstick Mode deliberately rejects "eating the frog" in favor of the 'One Fork' strategy: reducing activation energy down to an almost trivial, sub-atomic physical movement (e.g. putting one fork from the dishwasher into the drawer). Momentum builds naturally from friction-free action rather than forced willpower.
