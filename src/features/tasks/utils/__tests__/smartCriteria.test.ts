@@ -33,7 +33,9 @@ function makeTask(overrides: Partial<Task> = {}): Task {
 describe("isSpecificMet", () => {
 	it("returns true when specific criterion is present and met", () => {
 		const task = makeTask({
-			smart: { specific: { response: "Write the Q3 budget report", met: true } },
+			smart: {
+				specific: { response: "Write the Q3 budget report", met: true },
+			},
 		});
 
 		expect(isSpecificMet(task)).toBe(true);
@@ -60,7 +62,10 @@ describe("isMeasurableMet", () => {
 	it("returns true when measurable criterion is present and met", () => {
 		const task = makeTask({
 			smart: {
-				measurable: { response: "Report is submitted and signed off", met: true },
+				measurable: {
+					response: "Report is submitted and signed off",
+					met: true,
+				},
 			},
 		});
 
@@ -69,7 +74,9 @@ describe("isMeasurableMet", () => {
 
 	it("returns false when measurable criterion is present but not met", () => {
 		const task = makeTask({
-			smart: { measurable: { response: "Not sure how to measure this", met: false } },
+			smart: {
+				measurable: { response: "Not sure how to measure this", met: false },
+			},
 		});
 
 		expect(isMeasurableMet(task)).toBe(false);
@@ -98,7 +105,10 @@ describe("isAchievableMet", () => {
 	it("returns false when achievable criterion is present but not met", () => {
 		const task = makeTask({
 			smart: {
-				achievable: { response: "I am waiting on data from finance", met: false },
+				achievable: {
+					response: "I am waiting on data from finance",
+					met: false,
+				},
 			},
 		});
 
@@ -128,7 +138,10 @@ describe("isRelevantMet", () => {
 	it("returns false when relevant criterion is present but not met", () => {
 		const task = makeTask({
 			smart: {
-				relevant: { response: "Not sure why this matters right now", met: false },
+				relevant: {
+					response: "Not sure why this matters right now",
+					met: false,
+				},
 			},
 		});
 
@@ -201,7 +214,10 @@ describe("isSmartComplete", () => {
 		const task = makeTask({
 			smart: {
 				specific: { response: "Write the Q3 budget report", met: true },
-				measurable: { response: "Report is submitted and signed off", met: true },
+				measurable: {
+					response: "Report is submitted and signed off",
+					met: true,
+				},
 				achievable: { response: "I have all the data I need", met: true },
 				relevant: { response: "Required for the board meeting", met: true },
 				timeBound: {
@@ -219,7 +235,10 @@ describe("isSmartComplete", () => {
 		const task = makeTask({
 			smart: {
 				specific: { response: "Write the Q3 budget report", met: true },
-				measurable: { response: "Report is submitted and signed off", met: true },
+				measurable: {
+					response: "Report is submitted and signed off",
+					met: true,
+				},
 				achievable: { response: "I have all the data I need", met: true },
 				relevant: { response: "Required for the board meeting", met: true },
 				// timeBound is missing
@@ -233,7 +252,10 @@ describe("isSmartComplete", () => {
 		const task = makeTask({
 			smart: {
 				specific: { response: "Write the Q3 budget report", met: true },
-				measurable: { response: "Report is submitted and signed off", met: true },
+				measurable: {
+					response: "Report is submitted and signed off",
+					met: true,
+				},
 				achievable: { response: "Waiting on data from finance", met: false },
 				relevant: { response: "Required for the board meeting", met: true },
 				timeBound: {
@@ -257,7 +279,10 @@ describe("isSmartComplete", () => {
 		const task = makeTask({
 			smart: {
 				specific: { response: "Write the Q3 budget report", met: true },
-				measurable: { response: "Report is submitted and signed off", met: true },
+				measurable: {
+					response: "Report is submitted and signed off",
+					met: true,
+				},
 				achievable: { response: "I have all the data I need", met: true },
 				relevant: { response: "Required for the board meeting", met: true },
 				timeBound: {

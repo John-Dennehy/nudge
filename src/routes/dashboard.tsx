@@ -1,18 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { TaskBoard } from "@/features/tasks/components/TaskBoard";
+import { TaskDashboard } from "@/features/tasks/components/TaskDashboard";
 
 export const Route = createFileRoute("/dashboard")({
-  component: DashboardPage,
+	component: DashboardPage,
 });
 
 function DashboardPage() {
-  return (
-    <main className="page-wrap px-4 pb-8 pt-10">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">Your Nudge Board</h1>
-        <p className="text-muted-foreground mt-2 text-lg">Define your goals. Turn ideas into actionable steps.</p>
-      </div>
-      <TaskBoard />
-    </main>
-  );
+	return (
+		<main className="page-wrap px-4 pb-12 pt-8">
+			<div className="mb-6 max-w-4xl mx-auto">
+				<h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+					Nudge
+				</h1>
+				<p className="text-slate-500 dark:text-slate-400 mt-1 text-base">
+					Drop in your thoughts, take on one manageable step, and build momentum
+					at your own pace.
+				</p>
+			</div>
+			<TaskDashboard />
+		</main>
+	);
 }
