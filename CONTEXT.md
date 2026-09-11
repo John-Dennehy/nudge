@@ -35,3 +35,17 @@ _Avoid_: Shelved, dropped, abandoned
 **Reviewed**:
 The reflective learning loop completed after any outcome. For successful tasks, it checks whether we are stretching outside our comfort zone or underestimating capacity; for failed tasks, it calibrates overwhelm and goal reasonableness.
 _Avoid_: Archived, closed, done
+
+**Quiet Progress**:
+Gentle, visible indicators of non-obvious momentum (e.g. thoughts untangled, micro-steps completed, reflections recorded) designed to combat AuDHD time-blindness and the demoralizing feeling of having "done nothing today."
+_Avoid_: Streaks, productivity score, leaderboard, gamification badges
+
+## Communication Rule: Pure Plain English
+
+All user-facing language must be entirely free of technical and productivity jargon. 
+* Never show terms like "SMART criteria", "confidence score", "dependency graph", "state machine", or "triad selection" in the UI.
+* Use warm, direct, conversational language:
+  * Instead of *"Specific criterion unmet"*, say *"What does the first physical step look like?"*
+  * Instead of *"Confidence score 45%"*, say *"This still feels a bit big or fuzzy."*
+  * Instead of *"Deconstructing parent entity"*, say *"Let's make this easier to start."*
+  * Instead of *"Task transitioned to Reviewed"*, say *"Saved your reflection."*
