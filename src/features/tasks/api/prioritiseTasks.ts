@@ -77,9 +77,11 @@ No markdown wrappers, pure JSON.`,
 
 			const parsed = JSON.parse(content);
 			return parsed.suggestedTaskId as string;
-		} catch (error: any) {
+		} catch (error: unknown) {
 			console.error("AI Prioritisation Error: ", error);
-			throw new Error(error.message || "Failed to prioritise tasks.");
+			throw new Error(
+				error instanceof Error ? error.message : "Failed to prioritise tasks.",
+			);
 		}
 	},
 );

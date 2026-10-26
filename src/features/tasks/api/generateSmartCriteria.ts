@@ -141,9 +141,13 @@ Return ONLY a JSON object exactly matching this structure, with no markdown wrap
 				parsed.timeBound.met;
 
 			return parsed;
-		} catch (error: any) {
+		} catch (error: unknown) {
 			console.error("AI Evaluation Error: ", error);
-			throw new Error(error.message || "Failed to evaluate Task Logic.");
+			throw new Error(
+				error instanceof Error
+					? error.message
+					: "Failed to evaluate Task Logic.",
+			);
 		}
 	},
 );
