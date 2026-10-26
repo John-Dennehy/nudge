@@ -1,30 +1,38 @@
-import type { ClarificationCard, Reflection } from './events'
+import type { ClarificationCard, Reflection, Smart } from './events'
 
-export type { CardOption, ClarificationCard, NewGoal, NudgeEvent, Reflection } from './events'
+export type {
+	CardOption,
+	ClarificationCard,
+	Criterion,
+	NewGoal,
+	NudgeEvent,
+	OptionEffect,
+	Reflection,
+	Smart,
+	SmartPatch,
+} from './events'
 
 /**
- * Where a goal is in its life. Internal names only: the UI never shows these words.
+ * Where a goal is in its life. These names are internal: the app describes them in plain words.
  *
- * unclear   → needs a Clarification Card answered before it can start
- * split     → a bigger goal that Nudge tracks quietly behind its current step
- * ready     → small and clear, can be picked
+ * shaping   → still missing one of its five parts, so Nudge has a question for it
+ * split     → a bigger goal, waiting quietly behind its current step
+ * ready     → all five parts in place, can be picked
  * agreed    → the one Agreed Task being worked on now
- * succeeded → done, waiting for a reflection
- * failed    → didn't happen as planned, waiting for a reflection
- * reviewed  → reflected on, finished with
+ * succeeded → done
+ * failed    → the due date passed first, or the person said it didn't happen. A lesson, not a verdict.
  * removed   → taken off the list
  */
 export type GoalStatus =
-	| 'unclear'
+	| 'shaping'
 	| 'split'
 	| 'ready'
 	| 'agreed'
 	| 'succeeded'
 	| 'failed'
-	| 'reviewed'
 	| 'removed'
 
-export type GoalSource = 'dump' | 'import' | 'step' | 'replacement'
+export type GoalSource = 'dump' | 'import' | 'step' | 'retry'
 
 export interface Goal {
 	id: string
@@ -32,19 +40,24 @@ export interface Goal {
 	status: GoalStatus
 	/** The bigger goal this is a step of. */
 	parentId: string | null
-	/** Rough size, in minutes. */
-	minutes: number
-	dueAt: string | null
+	smart: Smart
+	/** The question Nudge is waiting on, if any. */
 	card: ClarificationCard | null
 	source: GoalSource
 	createdAt: string
 	updatedAt: string
-	/** How often it was agreed and then put back without finishing. */
+	/** First time it was agreed, so a miss can tell "never started" from "ran out of time". */
+	startedAt: string | null
+	finishedAt: string | null
+	/** How it finished, for misses: closed by the due date, and whether it was ever started. */
+	auto: boolean
+	cause: 'never-started' | 'ran-out-of-time' | null
+	/** How often it was agreed and then put back unfinished. */
 	timesPutBack: number
 	/** Titles of finished steps, for bigger goals. */
 	stepsDone: string[]
 	/** The goal this one is a fresh try of. */
-	replaces: string | null
+	retryOf: string | null
 	reflection: Reflection | null
 }
 
@@ -53,8 +66,6 @@ export interface NudgeState {
 	/** Goal ids in the order they arrived. */
 	order: string[]
 	agreedId: string | null
-	/** Seconds-precision time of the last event, for deterministic decisions. */
-	lastAt: string | null
 }
 
 export type Energy = 'low' | 'okay' | 'good'

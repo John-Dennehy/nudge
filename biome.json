@@ -6,7 +6,13 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!src/routeTree.gen.ts", "!drizzle"]
+		"includes": [
+			"**",
+			"!src/routeTree.gen.ts",
+			"!drizzle",
+			"!.cta.json",
+			"!.zed"
+		]
 	},
 	"formatter": {
 		"indentStyle": "tab",

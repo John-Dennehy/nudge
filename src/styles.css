@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+	--font-display: "Fraunces", ui-serif, Georgia, serif;
+	--font-sans:
+		"Atkinson Hyperlegible Next", "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
+
+	--color-paper: var(--paper);
+	--color-surface: var(--surface);
+	--color-edge: var(--edge);
+	--color-ink: var(--ink);
+	--color-muted: var(--muted);
+	--color-sage: var(--sage);
+	--color-sage-soft: var(--sage-soft);
+	--color-apricot: var(--apricot);
+	--color-apricot-soft: var(--apricot-soft);
+	--color-plum: var(--plum);
+	--color-plum-soft: var(--plum-soft);
+
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root {
+	--paper: #f7f3ec;
+	--surface: #fffdf9;
+	--edge: #e4dccf;
+	--ink: #2a2730;
+	--muted: #6a6572;
+	--sage: #3f6f58;
+	--sage-soft: #e1ede5;
+	--apricot: #b8561f;
+	--apricot-soft: #fbe6d6;
+	--plum: #6b4a8a;
+	--plum-soft: #ece4f4;
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--paper: #1b1a1f;
+		--surface: #24232a;
+		--edge: #39363f;
+		--ink: #eeeaf2;
+		--muted: #a8a2b0;
+		--sage: #8cc5a6;
+		--sage-soft: #24362d;
+		--apricot: #f0a274;
+		--apricot-soft: #3b2a20;
+		--plum: #c7a8e6;
+		--plum-soft: #312840;
+		color-scheme: dark;
+	}
+}
+
+@layer base {
+	body {
+		@apply bg-paper font-sans text-ink antialiased;
+		min-height: 100dvh;
+	}
+	h1,
+	h2,
+	h3 {
+		@apply font-display;
+		font-optical-sizing: auto;
+	}
+	:focus-visible {
+		@apply outline-2 outline-offset-2 outline-sage;
+	}
+}
+
+@utility panel {
+	@apply rounded-3xl border border-edge bg-surface shadow-[0_1px_0_var(--edge),0_8px_24px_-16px_rgb(0_0_0/0.25)];
+}
+
+@utility btn {
+	@apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 font-bold transition duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility btn-primary {
+	@apply btn bg-sage text-surface hover:brightness-110;
+}
+
+@utility btn-quiet {
+	@apply btn border border-edge bg-surface text-ink hover:border-sage;
+}
+
+@utility btn-ghost {
+	@apply btn px-3 text-muted hover:text-ink;
+}
+
+@utility eyebrow {
+	@apply text-xs font-bold uppercase tracking-[0.16em] text-muted;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		/* biome-ignore lint/complexity/noImportantStyles: reduced motion must win over utilities */
+		animation-duration: 0.01ms !important;
+		/* biome-ignore lint/complexity/noImportantStyles: reduced motion must win over utilities */
+		transition-duration: 0.01ms !important;
+	}
+}
