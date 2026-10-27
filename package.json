@@ -1,65 +1,57 @@
 {
-  "name": "nudge",
-  "private": true,
-  "type": "module",
-  "imports": {
-    "#/*": "./src/*"
-  },
-  "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest run",
-    "format": "biome format",
-    "lint": "biome lint",
-    "check": "biome check",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
-    "@tailwindcss/vite": "^4.1.18",
-    "@tanstack/react-devtools": "^0.10.0",
-    "@tanstack/react-query": "^5.95.2",
-    "@tanstack/react-query-devtools": "^5.95.2",
-    "@tanstack/react-router": "^1.168.4",
-    "@tanstack/react-router-devtools": "^1.166.11",
-    "@tanstack/react-router-ssr-query": "^1.166.10",
-    "@tanstack/react-start": "^1.167.7",
-    "@tanstack/router-plugin": "^1.132.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.577.0",
-    "radix-ui": "^1.4.3",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-hook-form": "^7.72.1",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.1.18",
-    "tw-animate-css": "^1.3.6",
-    "zod": "^4.3.6"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.4.5",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tanstack/devtools-vite": "^0.6.0",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.0",
-    "@types/node": "^22.10.2",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "@vitejs/plugin-react": "^5.1.4",
-    "babel-plugin-react-compiler": "^1.0.0",
-    "jsdom": "^28.1.0",
-    "typescript": "^5.7.2",
-    "vite": "^7.3.1",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.5"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "lightningcss"
-    ]
-  },
-  "packageManager": "pnpm@10.28.0"
+	"name": "nudge",
+	"private": true,
+	"type": "module",
+	"description": "Nudge: a gentle second brain for people with ADHD and autism. Dump what's on your mind, and Nudge turns it into small, doable next steps.",
+	"scripts": {
+		"dev": "vite dev --port 3000",
+		"build": "vite build",
+		"start": "node .output/server/index.mjs",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:e2e": "playwright test",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate"
+	},
+	"engines": {
+		"node": ">=22"
+	},
+	"dependencies": {
+		"@neondatabase/serverless": "1.2.0",
+		"@tanstack/react-router": "1.170.46",
+		"@tanstack/react-start": "1.169.4",
+		"drizzle-orm": "0.45.4",
+		"nitro": "3.0.260903-beta",
+		"react": "19.3.1",
+		"react-dom": "19.3.1",
+		"zod": "4.6.7"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.2",
+		"@playwright/test": "1.64.1",
+		"@tailwindcss/vite": "4.3.3",
+		"@tanstack/router-plugin": "1.168.48",
+		"@testing-library/dom": "^10.4.2",
+		"@testing-library/jest-dom": "^7.0.1",
+		"@testing-library/react": "16.3.3",
+		"@testing-library/user-event": "14.6.1",
+		"@types/node": "^22.20.5",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@vitejs/plugin-react": "6.1.2",
+		"drizzle-kit": "0.31.11",
+		"jsdom": "30.1.3",
+		"tailwindcss": "4.3.3",
+		"typescript": "5.9.3",
+		"vite": "8.3.5",
+		"vitest": "5.0.5"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		]
+	},
+	"packageManager": "pnpm@10.28.0"
 }
